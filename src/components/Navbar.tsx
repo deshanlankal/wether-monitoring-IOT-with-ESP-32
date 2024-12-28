@@ -13,7 +13,7 @@ export function Navbar() {
       <div className="flex justify-between">
         <div className="flex items-center">
           <Link href={"/"}>
-            <Icons.sunset className="w-12 h-12" />
+            <Icons.logo className="w-12 h-12" />
           </Link>
         </div>
         <div className="flex items-center">
@@ -23,12 +23,6 @@ export function Navbar() {
             </li>
             <li className="md:hidden">
               <ProfileDrawer />
-            </li>
-            <li className="hidden md:block">
-              <SettingModal />
-            </li>
-            <li className="md:hidden">
-              <SettingDrawer />
             </li>
             <li>
               <Link href={"https://github.com/deshanlankal?tab=repositories"} target="_blank">

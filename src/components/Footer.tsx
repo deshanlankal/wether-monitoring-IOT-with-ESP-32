@@ -69,16 +69,6 @@ export function Footer() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between mx-4">
-        <div className="flex flex-col">
-          <h3 className="text-2xl">Weather Data</h3>
-          <Icons.cloud className="h-8 w-8 rounded-full bg-[#0e1426] p-1" />
-        </div>
-        <div className="flex items-end">
-          <p className="text-xl text-[#5f6281]">Moon Phase</p>
-          <Icons.moon className="h-12 w-12" />
-        </div>
-      </div>
       <div className="flex m-4 gap-3 min-h-60">
         <Swiper
           modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, Parallax]}
