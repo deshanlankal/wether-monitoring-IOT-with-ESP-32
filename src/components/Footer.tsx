@@ -12,12 +12,17 @@ import {
   Parallax,
 } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { createClient } from "@supabase/supabase-js";
 
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { loginTb } from "@/actions";
 import { readSetting } from "@/actions";
+
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || "";
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || "";
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export function Footer() {
   const [tempIn, setTempIn] = useState(0);
@@ -26,104 +31,48 @@ export function Footer() {
   const [humOut, setHumOut] = useState(0);
   const [pressure, setPressure] = useState(0);
   const [rainfall, setRainfall] = useState(0);
-  const [windDirection,setWindDirection] = useState("NA");
-  const [windSpeed, setWindSpeed] = useState(0);
-  const [windAvg, setWindAvg] = useState(0);
+  const [uvIndex, setUvIndex] = useState(0);
+  const [airQuality, setAirQuality] = useState(0);
 
   useEffect(() => {
-    const fetchLoginData = async () => {
+    const fetchWeatherData = async () => {
       try {
-        const login = await loginTb();
-        const setting = await readSetting();
+        const { data, error } = await supabase
+          .from("weather_data")
+          .select("*")
+          .order("created_at", { ascending: false })
+          .limit(1); // Fetch the latest data
 
-        if (setting && setting.data && setting.data.length > 0) {
-          const token = login.token;
-          let { entityType, entityId } = setting.data[0];
-          const webSocket = new WebSocket(
-            process.env.NEXT_PUBLIC_TB_WS_URL || ""
-          );
+        if (error) {
+          console.error("Error fetching weather data:", error);
+          return;
+        }
 
-          webSocket.onopen = () => {
-            const object = {
-              authCmd: {
-                cmdId: 0,
-                token: token,
-              },
-              cmds: [
-                {
-                  entityType: entityType,
-                  entityId: entityId,
-                  scope: "LATEST_TELEMETRY",
-                  cmdId: 10,
-                  type: "TIMESERIES",
-                },
-              ],
-            };
-            const data = JSON.stringify(object);
-            webSocket.send(data);
-          };
-
-          webSocket.onmessage = (event) => {
-            const receivedData = JSON.parse(event.data);
-            const { subscriptionId, data } = receivedData;
-            const {
-              tempIn,
-              tempOut,
-              humIn,
-              humOut,
-              pressure,
-              rainfall,
-              windDirection,
-              windSpeed,
-              windAvg,
-            } = data;
-            setTempIn(tempIn[0][1]);
-            setTempOut(tempOut[0][1]);
-            setHumIn(humIn[0][1]);
-            setHumOut(humOut[0][1]);
-            setPressure(pressure[0][1]);
-            setRainfall(rainfall[0][1]);
-            setWindDirection(windDirection[0][1]);
-            setWindSpeed(windSpeed[0][1]);
-            setWindAvg(windAvg[0][1]);
-          };
-
-          webSocket.onclose = () => {
-            console.log("Connection closed!");
-          };
-
-          return () => {
-            webSocket.close();
-          };
-        } else {
-          console.error("Setting data is null or empty");
+        if (data && data.length > 0) {
+          const latestData = data[0];
+          setTempIn(latestData.tempIn);
+          setTempOut(latestData.tempOut);
+          setHumIn(latestData.humIn);
+          setHumOut(latestData.humOut);
+          setPressure(latestData.pressure);
+          setRainfall(latestData.rainfall);
+          setUvIndex(latestData.uvIndex);
+          setAirQuality(latestData.airQuality);
         }
       } catch (error) {
-        console.log(error)
+        console.error("Unexpected error:", error);
       }
     };
-    fetchLoginData();
+
+    fetchWeatherData();
   }, []);
+
   return (
     <div className="flex flex-col">
       <div className="flex justify-between mx-4">
         <div className="flex flex-col">
-          <div className="flex gap-3">
-            <h3 className="text-2xl">Wind</h3>
-            <Icons.wind className="h-8 w-8 rounded-full bg-[#0e1426] p-1" />
-          </div>
-          <div className="flex gap-2">
-            <p className="text-xl text-[#5f6281]">Direction:</p>
-            <p className="text-xl text-white">{windDirection}</p>
-          </div>
-          <div className="flex gap-2">
-            <p className="text-xl text-[#5f6281]">Speed:</p>
-            <p className="text-xl text-white">{windSpeed} m/s</p>
-          </div>
-          <div className="flex gap-2">
-            <p className="text-xl text-[#5f6281]">Average:</p>
-            <p className="text-xl text-white">{windAvg}</p>
-          </div>
+          <h3 className="text-2xl">Weather Data</h3>
+          <Icons.cloud className="h-8 w-8 rounded-full bg-[#0e1426] p-1" />
         </div>
         <div className="flex items-end">
           <p className="text-xl text-[#5f6281]">Moon Phase</p>
@@ -132,36 +81,17 @@ export function Footer() {
       </div>
       <div className="flex m-4 gap-3 min-h-60">
         <Swiper
-          modules={[
-            Navigation,
-            Pagination,
-            Scrollbar,
-            A11y,
-            Autoplay,
-            Parallax,
-          ]}
+          modules={[Navigation, Pagination, Scrollbar, A11y, Autoplay, Parallax]}
           spaceBetween={10}
           slidesPerView={4}
           navigation
           pagination={{ clickable: true }}
           autoplay
           breakpoints={{
-            200: {
-              slidesPerView: 1,
-              spaceBetween: 10,
-            },
-            640: {
-              slidesPerView: 2,
-              spaceBetween: 20,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 30,
-            },
-            1024: {
-              slidesPerView: 4,
-              spaceBetween: 10,
-            },
+            200: { slidesPerView: 1, spaceBetween: 10 },
+            640: { slidesPerView: 2, spaceBetween: 20 },
+            768: { slidesPerView: 3, spaceBetween: 30 },
+            1024: { slidesPerView: 4, spaceBetween: 10 },
           }}
         >
           <SwiperSlide>
@@ -216,6 +146,24 @@ export function Footer() {
               value={humOut}
               unit={"%"}
               texts={["", "Outdoor Humidity", ""]}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Card
+              title="UV Index"
+              icon={<Icons.sun />}
+              value={uvIndex}
+              unit={""}
+              texts={["", "UV Radiation", ""]}
+            />
+          </SwiperSlide>
+          <SwiperSlide>
+            <Card
+              title="Air Quality"
+              icon={<Icons.droplet />}
+              value={airQuality}
+              unit={""}
+              texts={["", "Air Pollutants", ""]}
             />
           </SwiperSlide>
         </Swiper>
