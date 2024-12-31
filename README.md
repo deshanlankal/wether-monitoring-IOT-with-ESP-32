@@ -68,9 +68,9 @@ Make sure you have the following installed:
 
 ### Web Interface 📱
 
-![Application Screenshot 1](https://via.placeholder.com/600x400)
-![Application Screenshot 2](https://via.placeholder.com/600x400)
-![Application Screenshot 3](https://via.placeholder.com/600x400)
+![Application Screenshot 1](https://github.com/deshanlankal/wether-monitoring-IOT-with-ESP-32/blob/main/public/HOME%20Page.png)
+![Application Screenshot 2](https://github.com/deshanlankal/wether-monitoring-IOT-with-ESP-32/blob/main/public/SignIn.png)
+![Application Screenshot 3](https://github.com/deshanlankal/wether-monitoring-IOT-with-ESP-32/blob/main/public/Register.png)
 
 ### Circuit Diagram 🔌
 
