@@ -26,11 +26,11 @@ export function Footer() {
   const [tempOut, setTempOut] = useState(0);
   const [humOut, setHumOut] = useState(0);
   const [pressure, setPressure] = useState(0);
-  const [rainfall, setRainfall] = useState(0);
+  const [rainAnalog, setRainAnalog] = useState(0); // Analog sensor value for rainfall
+  const [rainDigital, setRainDigital] = useState(false); // Digital sensor for raining status
   const [airQuality, setAirQuality] = useState(0);
   const [windDirection, setWindDirection] = useState("NA");
   const [altitude, setAltitude] = useState(0);
-  const [soilMoisture, setSoilMoisture] = useState(0);
   const [ldrStatus, setLdrStatus] = useState(false); // Day (true) or Night (false)
 
   useEffect(() => {
@@ -52,11 +52,11 @@ export function Footer() {
           setTempOut(latestData.tempOut);
           setHumOut(latestData.humOut);
           setPressure(latestData.pressure);
-          setRainfall(latestData.rainfall);
+          setRainAnalog(latestData.rainAnalog);
+          setRainDigital(latestData.rainDigital);
           setAirQuality(latestData.airQuality);
           setWindDirection(latestData.windDirection);
           setAltitude(latestData.altitude);
-          setSoilMoisture(latestData.soilMoisture);
           setLdrStatus(latestData.ldrStatus);
         }
       } catch (error) {
@@ -93,6 +93,20 @@ export function Footer() {
               </>
             )}
           </div>
+          {/* Raining/Not Raining Status */}
+          <div className="flex gap-3 mt-4 items-center">
+            {rainDigital ? (
+              <>
+                <Icons.cloudRain className="h-8 w-8 text-blue-500" />
+                <p className="text-xl text-white">Raining</p>
+              </>
+            ) : (
+              <>
+                <Icons.cloud className="h-8 w-8 text-gray-400" />
+                <p className="text-xl text-white"></p>
+              </>
+            )}
+          </div>
         </div>
       </div>
       <div className="flex m-4 gap-3 min-h-60">
@@ -116,7 +130,7 @@ export function Footer() {
               icon={<Icons.temperature />}
               value={tempOut}
               unit={"°F"}
-              texts={["", "Outdoor Temperature", ""]}
+              texts={["", "Outdoor Temperature", ""]} 
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -141,9 +155,9 @@ export function Footer() {
             <Card
               title="Rainfall"
               icon={<Icons.cloudRain />}
-              value={rainfall}
-              unit={"mm"}
-              texts={["", "Rainfall", ""]}
+              value={rainAnalog}
+              unit={"units"}
+              texts={["", "Rain Sensor Value", ""]}
             />
           </SwiperSlide>
           <SwiperSlide>
@@ -153,15 +167,6 @@ export function Footer() {
               value={airQuality}
               unit={""}
               texts={["", "Air Pollutants", ""]}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card
-              title="Soil Moisture"
-              icon={<Icons.soilMoisture />}
-              value={soilMoisture}
-              unit={"%"}
-              texts={["", "Soil Moisture Level", ""]}
             />
           </SwiperSlide>
           <SwiperSlide>
