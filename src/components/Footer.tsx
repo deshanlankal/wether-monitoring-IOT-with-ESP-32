@@ -31,6 +31,7 @@ export function Footer() {
   const [windDirection, setWindDirection] = useState("NA");
   const [altitude, setAltitude] = useState(0);
   const [soilMoisture, setSoilMoisture] = useState(0);
+  const [ldrStatus, setLdrStatus] = useState(false); // Day (true) or Night (false)
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -56,6 +57,7 @@ export function Footer() {
           setWindDirection(latestData.windDirection);
           setAltitude(latestData.altitude);
           setSoilMoisture(latestData.soilMoisture);
+          setLdrStatus(latestData.ldrStatus);
         }
       } catch (error) {
         console.error("Unexpected error:", error);
@@ -76,6 +78,20 @@ export function Footer() {
           <div className="flex gap-2">
             <p className="text-xl text-[#5f6281]">Direction:</p>
             <p className="text-xl text-white">{windDirection}</p>
+          </div>
+          {/* Day/Night Status */}
+          <div className="flex gap-3 mt-4 items-center">
+            {ldrStatus ? (
+              <>
+                <Icons.sun className="h-8 w-8 text-yellow-400" />
+                <p className="text-xl text-white">Daytime</p>
+              </>
+            ) : (
+              <>
+                <Icons.moon className="h-8 w-8 text-blue-400" />
+                <p className="text-xl text-white">Nighttime</p>
+              </>
+            )}
           </div>
         </div>
       </div>
