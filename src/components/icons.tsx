@@ -412,4 +412,28 @@ export const Icons = {
       <path d="M9 12h12l-3-3M18 15l3-3" />
     </svg>
   ),
+  airQuality: (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zm0 22c-5.528 0-10-4.472-10-10s4.472-10 10-10 10 4.472 10 10-4.472 10-10 10zm0-15c-2.758 0-5 2.242-5 5s2.242 5 5 5 5-2.242 5-5-2.242-5-5-5zm0 8c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3-1.346 3-3 3z"
+      />
+    </svg>
+  ),
+  soilMoisture: (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-12h2v6h-2zm-1 7h4v2h-4z"
+      />
+    </svg>
+  ),
+  altitude: (props: IconProps) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" {...props}>
+      <path
+        fill="currentColor"
+        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10-4.48-10-10-10zm-1 14h2v2h-2zm0-6h2v4h-2zm0-4h2v2h-2zm-1-2H8v2h2zm-2 4H6v4h2z"
+      />
+    </svg>
+  ),
 };
