@@ -31,7 +31,7 @@ export function Footer() {
   const [airQuality, setAirQuality] = useState(0);
   const [windDirection, setWindDirection] = useState("NA");
   const [altitude, setAltitude] = useState(0);
-  const [ldrStatus, setLdrStatus] = useState(true); // Day (true) or Night (false)
+  const [ldrStatus, setLdrStatus] = useState(false); // Day (true) or Night (false)
 
   useEffect(() => {
     const fetchWeatherData = async () => {
@@ -83,13 +83,13 @@ export function Footer() {
           <div className="flex gap-3 mt-4 items-center">
             {ldrStatus ? (
               <>
-                <Icons.sun className="h-8 w-8 text-yellow-400" />
-                <p className="text-xl text-white">Daytime</p>
+                <Icons.moon className="h-8 w-8 text-yellow-400" />
+                <p className="text-xl text-white">Nighttime</p>
               </>
             ) : (
               <>
-                <Icons.moon className="h-8 w-8 text-blue-400" />
-                <p className="text-xl text-white">Nighttime</p>
+                <Icons.sun className="h-8 w-8 text-blue-400" />
+                <p className="text-xl text-white">Daytime</p>
               </>
             )}
           </div>
