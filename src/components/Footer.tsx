@@ -162,15 +162,6 @@ export function Footer() {
           </SwiperSlide>
           <SwiperSlide>
             <Card
-              title="Air Quality"
-              icon={<Icons.airQuality />}
-              value={airQuality}
-              unit={""}
-              texts={["", "Air Pollutants", ""]}
-            />
-          </SwiperSlide>
-          <SwiperSlide>
-            <Card
               title="Altitude"
               icon={<Icons.altitude />}
               value={altitude}
