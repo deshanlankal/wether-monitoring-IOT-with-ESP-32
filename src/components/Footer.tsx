@@ -31,7 +31,7 @@ export function Footer() {
   const [airQuality, setAirQuality] = useState(0);
   const [windDirection, setWindDirection] = useState("NA");
   const [altitude, setAltitude] = useState(0);
-  const [ldrStatus, setLdrStatus] = useState(false); // Day (true) or Night (false)
+  const [ldrStatus, setLdrStatus] = useState(true); // Day (true) or Night (false)
 
   useEffect(() => {
     const fetchWeatherData = async () => {
