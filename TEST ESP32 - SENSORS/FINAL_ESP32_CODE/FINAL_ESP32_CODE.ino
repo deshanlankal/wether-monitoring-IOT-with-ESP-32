@@ -7,16 +7,16 @@
 #include <DHT.h>
 
 // Supabase credentials
-const char* supabaseWeatherDataUrl = "https://dtrmsucycefbpihjystl.supabase.co/rest/v1/weather_data";
-const char* supabaseWeatherLocationUrl = "https://dtrmsucycefbpihjystl.supabase.co/rest/v1/weather_location";
-const char* supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR0cm1zdWN5Y2VmYnBpaGp5c3RsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzUzNjg3NTEsImV4cCI6MjA1MDk0NDc1MX0.NyGUbF9x3u7eEFtZL1ZjMjEibylqOwjkTPoyd1X1KTE";
+const char* supabaseWeatherDataUrl = "";
+const char* supabaseWeatherLocationUrl = "";
+const char* supabaseKey = "";
 
 // Wi-Fi credentials
-const char* ssid = "Slt 4G";
-const char* password = "12345678";
+const char* ssid = "";
+const char* password = "";
 
 // IP Info API token
-const char* ipinfoToken = "c9adbe3b000acc"; // Replace with your ipinfo.io token
+const char* ipinfoToken = ""; // Replace with your ipinfo.io token
 
 // GPIO pins for sensors and LEDs
 #define SENSOR1_PIN 33  // North
